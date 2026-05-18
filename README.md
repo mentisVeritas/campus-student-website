@@ -36,8 +36,7 @@ Demo logins (after seed): [`docs/development/test-credentials.md`](docs/developm
 │   ├── prisma/        # Schema and migrations
 │   └── src/           # App Router pages and components
 ├── docs/              # Product and development documentation
-├── package.json       # npm workspaces (scripts run from root)
-└── .github/workflows/ # CI (lint + build)
+└── package.json       # npm workspaces (scripts run from root)
 ```
 
 ## Scripts (from repository root)
