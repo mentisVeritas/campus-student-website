@@ -1,0 +1,275 @@
+# Test Credentials
+
+These credentials are for local development/demo data from `apps/web/prisma/seed.ts`.
+
+## Admins
+
+- Role: `ADMIN`
+- Email: `admin@university.edu`
+- Password: `Admin123!`
+
+## Teachers
+
+- Role: `TEACHER`
+- Password (all teachers): `Teacher123!`
+- Total teachers: `15`
+- Grouped by subject:
+  - `Discrete Math`:
+    - `madina.karimova@university.edu`
+    - `dilshod.kamilov@university.edu`
+    - `lola.iskandarova@university.edu`
+  - `Web Development`:
+    - `aziz.rasulov@university.edu`
+    - `rustam.rakhmonov@university.edu`
+  - `Database Systems`:
+    - `aziz.rasulov@university.edu`
+    - `dilshod.kamilov@university.edu`
+    - `rustam.rakhmonov@university.edu`
+  - `Algorithms`:
+    - `madina.karimova@university.edu`
+    - `nargiza.usmanova@university.edu`
+    - `eldor.karimov@university.edu`
+  - `Physics`:
+    - `sardor.qodirov@university.edu`
+    - `lola.iskandarova@university.edu`
+  - `Network Security`:
+    - `kamol.yuldashev@university.edu`
+    - `diyor.hasanov@university.edu`
+    - `umid.tohirov@university.edu`
+  - `Cryptography Basics`:
+    - `kamol.yuldashev@university.edu`
+    - `diyor.hasanov@university.edu`
+  - `Secure Coding`:
+    - `kamol.yuldashev@university.edu`
+    - `rustam.rakhmonov@university.edu`
+    - `umid.tohirov@university.edu`
+  - `UX Research`:
+    - `nilufar.saidova@university.edu`
+    - `marina.sultanova@university.edu`
+  - `Interaction Design`:
+    - `nilufar.saidova@university.edu`
+    - `marina.sultanova@university.edu`
+  - `Machine Learning Basics`:
+    - `nargiza.usmanova@university.edu`
+    - `eldor.karimov@university.edu`
+  - `Data Visualization`:
+    - `bekzod.rajabov@university.edu`
+    - `eldor.karimov@university.edu`
+    - `sevara.akhmedova@university.edu`
+  - `Business Analytics`:
+    - `bekzod.rajabov@university.edu`
+    - `sevara.akhmedova@university.edu`
+
+## Students
+
+- Role: `STUDENT`
+- Password (all students): `Student123!`
+- Grouped by class:
+  - `CS-24-01 (Year 1)`:
+    - `ali.valiyev1@university.edu`
+    - `gulnoza.rakhimova20@university.edu`
+    - `bekzod.islomova39@university.edu`
+    - `laylo.oripov58@university.edu`
+    - `javohir.nasriddinov77@university.edu`
+    - `mubina.tursunova96@university.edu`
+    - `temur.abdukarimova115@university.edu`
+    - `nodira.nurmatova134@university.edu`
+    - `akmal.valiyev153@university.edu`
+    - `saida.yuldashev172@university.edu`
+  - `CS-24-02 (Year 1)`:
+    - `nodira.valiyev2@university.edu`
+    - `akmal.rakhimova21@university.edu`
+    - `saida.islomova40@university.edu`
+    - `sherzod.oripov59@university.edu`
+    - `shahnoza.nasriddinov78@university.edu`
+    - `ali.sobirov97@university.edu`
+    - `gulnoza.abdukarimova116@university.edu`
+    - `bekzod.nurmatova135@university.edu`
+    - `laylo.valiyev154@university.edu`
+    - `javohir.yuldashev173@university.edu`
+  - `SE-24-01 (Year 1)`:
+    - `bekzod.valiyev3@university.edu`
+    - `laylo.rakhimova22@university.edu`
+    - `javohir.islomova41@university.edu`
+    - `mubina.oripov60@university.edu`
+    - `temur.nasriddinov79@university.edu`
+    - `nodira.sobirov98@university.edu`
+    - `akmal.abdukarimova117@university.edu`
+    - `saida.nurmatova136@university.edu`
+    - `sherzod.valiyev155@university.edu`
+    - `shahnoza.yuldashev174@university.edu`
+  - `DS-24-01 (Year 1)`:
+    - `saida.valiyev4@university.edu`
+    - `sherzod.rakhimova23@university.edu`
+    - `shahnoza.islomova42@university.edu`
+    - `ali.sattorova61@university.edu`
+    - `gulnoza.nasriddinov80@university.edu`
+    - `bekzod.sobirov99@university.edu`
+    - `laylo.abdukarimova118@university.edu`
+    - `javohir.nurmatova137@university.edu`
+    - `mubina.valiyev156@university.edu`
+    - `temur.yuldashev175@university.edu`
+  - `AI-24-01 (Year 1)`:
+    - `javohir.valiyev5@university.edu`
+    - `mubina.rakhimova24@university.edu`
+    - `temur.islomova43@university.edu`
+    - `nodira.sattorova62@university.edu`
+    - `akmal.nasriddinov81@university.edu`
+    - `saida.sobirov100@university.edu`
+    - `sherzod.abdukarimova119@university.edu`
+    - `shahnoza.nurmatova138@university.edu`
+    - `ali.rakhimova157@university.edu`
+    - `gulnoza.yuldashev176@university.edu`
+  - `CSec-24-01 (Year 1)`:
+    - `shahnoza.valiyev6@university.edu`
+    - `ali.yuldashev25@university.edu`
+    - `gulnoza.islomova44@university.edu`
+    - `bekzod.sattorova63@university.edu`
+    - `laylo.nasriddinov82@university.edu`
+    - `javohir.sobirov101@university.edu`
+    - `mubina.abdukarimova120@university.edu`
+    - `temur.nurmatova139@university.edu`
+    - `nodira.rakhimova158@university.edu`
+    - `akmal.yuldashev177@university.edu`
+  - `BA-24-01 (Year 1)`:
+    - `temur.valiyev7@university.edu`
+    - `nodira.yuldashev26@university.edu`
+    - `akmal.islomova45@university.edu`
+    - `saida.sattorova64@university.edu`
+    - `sherzod.nasriddinov83@university.edu`
+    - `shahnoza.sobirov102@university.edu`
+    - `ali.gafurov121@university.edu`
+    - `gulnoza.nurmatova140@university.edu`
+    - `bekzod.rakhimova159@university.edu`
+    - `laylo.yuldashev178@university.edu`
+  - `UIUX-24-01 (Year 1)`:
+    - `gulnoza.valiyev8@university.edu`
+    - `bekzod.yuldashev27@university.edu`
+    - `laylo.islomova46@university.edu`
+    - `javohir.sattorova65@university.edu`
+    - `mubina.nasriddinov84@university.edu`
+    - `temur.sobirov103@university.edu`
+    - `nodira.gafurov122@university.edu`
+    - `akmal.nurmatova141@university.edu`
+    - `saida.rakhimova160@university.edu`
+    - `sherzod.yuldashev179@university.edu`
+  - `CS-23-01 (Year 2)`:
+    - `akmal.valiyev9@university.edu`
+    - `saida.yuldashev28@university.edu`
+    - `sherzod.islomova47@university.edu`
+    - `shahnoza.sattorova66@university.edu`
+    - `ali.tursunova85@university.edu`
+    - `gulnoza.sobirov104@university.edu`
+    - `bekzod.gafurov123@university.edu`
+    - `laylo.nurmatova142@university.edu`
+    - `javohir.rakhimova161@university.edu`
+    - `mubina.yuldashev180@university.edu`
+  - `SE-23-01 (Year 2)`:
+    - `laylo.valiyev10@university.edu`
+    - `javohir.yuldashev29@university.edu`
+    - `mubina.islomova48@university.edu`
+    - `temur.sattorova67@university.edu`
+    - `nodira.tursunova86@university.edu`
+    - `akmal.sobirov105@university.edu`
+    - `saida.gafurov124@university.edu`
+    - `sherzod.nurmatova143@university.edu`
+    - `shahnoza.rakhimova162@university.edu`
+  - `DS-23-01 (Year 2)`:
+    - `sherzod.valiyev11@university.edu`
+    - `shahnoza.yuldashev30@university.edu`
+    - `ali.oripov49@university.edu`
+    - `gulnoza.sattorova68@university.edu`
+    - `bekzod.tursunova87@university.edu`
+    - `laylo.sobirov106@university.edu`
+    - `javohir.gafurov125@university.edu`
+    - `mubina.nurmatova144@university.edu`
+    - `temur.rakhimova163@university.edu`
+  - `AI-23-01 (Year 2)`:
+    - `mubina.valiyev12@university.edu`
+    - `temur.yuldashev31@university.edu`
+    - `nodira.oripov50@university.edu`
+    - `akmal.sattorova69@university.edu`
+    - `saida.tursunova88@university.edu`
+    - `sherzod.sobirov107@university.edu`
+    - `shahnoza.gafurov126@university.edu`
+    - `ali.valiyev145@university.edu`
+    - `gulnoza.rakhimova164@university.edu`
+  - `CSec-23-01 (Year 2)`:
+    - `ali.rakhimova13@university.edu`
+    - `gulnoza.yuldashev32@university.edu`
+    - `bekzod.oripov51@university.edu`
+    - `laylo.sattorova70@university.edu`
+    - `javohir.tursunova89@university.edu`
+    - `mubina.sobirov108@university.edu`
+    - `temur.gafurov127@university.edu`
+    - `nodira.valiyev146@university.edu`
+    - `akmal.rakhimova165@university.edu`
+  - `BA-23-01 (Year 2)`:
+    - `nodira.rakhimova14@university.edu`
+    - `akmal.yuldashev33@university.edu`
+    - `saida.oripov52@university.edu`
+    - `sherzod.sattorova71@university.edu`
+    - `shahnoza.tursunova90@university.edu`
+    - `ali.abdukarimova109@university.edu`
+    - `gulnoza.gafurov128@university.edu`
+    - `bekzod.valiyev147@university.edu`
+    - `laylo.rakhimova166@university.edu`
+  - `UIUX-23-01 (Year 2)`:
+    - `bekzod.rakhimova15@university.edu`
+    - `laylo.yuldashev34@university.edu`
+    - `javohir.oripov53@university.edu`
+    - `mubina.sattorova72@university.edu`
+    - `temur.tursunova91@university.edu`
+    - `nodira.abdukarimova110@university.edu`
+    - `akmal.gafurov129@university.edu`
+    - `saida.valiyev148@university.edu`
+    - `sherzod.rakhimova167@university.edu`
+  - `CS-22-01 (Year 3)`:
+    - `saida.rakhimova16@university.edu`
+    - `sherzod.yuldashev35@university.edu`
+    - `shahnoza.oripov54@university.edu`
+    - `ali.nasriddinov73@university.edu`
+    - `gulnoza.tursunova92@university.edu`
+    - `bekzod.abdukarimova111@university.edu`
+    - `laylo.gafurov130@university.edu`
+    - `javohir.valiyev149@university.edu`
+    - `mubina.rakhimova168@university.edu`
+  - `SE-22-01 (Year 3)`:
+    - `javohir.rakhimova17@university.edu`
+    - `mubina.yuldashev36@university.edu`
+    - `temur.oripov55@university.edu`
+    - `nodira.nasriddinov74@university.edu`
+    - `akmal.tursunova93@university.edu`
+    - `saida.abdukarimova112@university.edu`
+    - `sherzod.gafurov131@university.edu`
+    - `shahnoza.valiyev150@university.edu`
+    - `ali.yuldashev169@university.edu`
+  - `DS-22-01 (Year 3)`:
+    - `shahnoza.rakhimova18@university.edu`
+    - `ali.islomova37@university.edu`
+    - `gulnoza.oripov56@university.edu`
+    - `bekzod.nasriddinov75@university.edu`
+    - `laylo.tursunova94@university.edu`
+    - `javohir.abdukarimova113@university.edu`
+    - `mubina.gafurov132@university.edu`
+    - `temur.valiyev151@university.edu`
+    - `nodira.yuldashev170@university.edu`
+  - `AI-22-01 (Year 3)`:
+    - `temur.rakhimova19@university.edu`
+    - `nodira.islomova38@university.edu`
+    - `akmal.oripov57@university.edu`
+    - `saida.nasriddinov76@university.edu`
+    - `sherzod.tursunova95@university.edu`
+    - `shahnoza.abdukarimova114@university.edu`
+    - `ali.nurmatova133@university.edu`
+    - `gulnoza.valiyev152@university.edu`
+    - `bekzod.yuldashev171@university.edu`
+- Email format reminder:
+    - `<firstName>.<lastName><N>@university.edu`
+    - Example: `ali.valiyev1@university.edu`
+
+## Canteen Staff
+
+- Role: `CANTEEN_STAFF`
+- Email: `canteen@university.edu`
+- Password: `Canteen123!`

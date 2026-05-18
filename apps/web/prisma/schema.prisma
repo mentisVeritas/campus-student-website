@@ -1,0 +1,468 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             String         @id @default(cuid())
+  email          String         @unique
+  passwordHash   String
+  role           Role           @default(STUDENT)
+  firstName      String
+  lastName       String
+  phone          String?
+  avatarUrl      String?
+  isActive       Boolean        @default(true)
+  blockedUntil   DateTime?
+  blockReason    String?
+  isSuperAdmin   Boolean        @default(false)
+  mustChangePass Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  student        Student?
+  teacher        Teacher?
+  notifications  Notification[]
+  announcementReads AnnouncementRead[]
+  announcements  Announcement[]
+  lostFoundItems LostFoundItem[]
+  bulletinPosts  BulletinPost[]
+  preference     UserPreference?
+  documentRequestsSubmitted DocumentRequest[] @relation("DocumentRequestRequester")
+  documentRequestsReviewed  DocumentRequest[] @relation("DocumentRequestReviewer")
+}
+
+model AppSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model UserPreference {
+  id       String  @id @default(cuid())
+  userId   String  @unique
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  darkMode Boolean @default(false)
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  STUDENT
+  CANTEEN_STAFF
+}
+
+model Student {
+  id                  String               @id @default(cuid())
+  userId              String               @unique
+  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentCode         String               @unique
+  classId             String?
+  class               Class?               @relation(fields: [classId], references: [id])
+  year                Int
+  enrolledAt          DateTime             @default(now())
+  grades              Grade[]
+  documentRequests    DocumentRequest[]
+  eventRegistrations  EventRegistration[]
+  sportsRegistrations SportsRegistration[]
+  portfolio           Portfolio?
+  ranking             AcademicRanking?
+  attendances         Attendance[]
+}
+
+model Teacher {
+  id            String           @id @default(cuid())
+  userId        String           @unique
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  employeeId    String           @unique
+  department    String
+  bio           String?
+  subjects      TeacherSubject[]
+  classes       ClassTeacher[]
+  grades        Grade[]
+  announcements Announcement[]
+  schedule      ScheduleItem[]
+  attendances   Attendance[]
+}
+
+model Class {
+  id            String         @id @default(cuid())
+  name          String
+  year          Int
+  students      Student[]
+  teachers      ClassTeacher[]
+  subjects      ClassSubject[]
+  scheduleItems ScheduleItem[]
+  announcements Announcement[]
+  attendances   Attendance[]
+}
+
+model Subject {
+  id       String           @id @default(cuid())
+  name     String
+  code     String           @unique
+  credits  Int              @default(3)
+  teachers TeacherSubject[]
+  classes  ClassSubject[]
+  grades   Grade[]
+  schedule ScheduleItem[]
+  attendances Attendance[]
+}
+
+model TeacherSubject {
+  teacherId String
+  subjectId String
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  @@id([teacherId, subjectId])
+}
+
+model ClassTeacher {
+  classId    String
+  teacherId  String
+  isHomeroom Boolean @default(false)
+  class      Class   @relation(fields: [classId], references: [id])
+  teacher    Teacher @relation(fields: [teacherId], references: [id])
+
+  @@id([classId, teacherId])
+}
+
+model ClassSubject {
+  classId   String
+  subjectId String
+  class     Class   @relation(fields: [classId], references: [id])
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  @@id([classId, subjectId])
+}
+
+model ScheduleItem {
+  id         String    @id @default(cuid())
+  classId    String
+  subjectId  String
+  teacherId  String
+  dayOfWeek  DayOfWeek
+  startTime  String
+  endTime    String
+  room       String
+  changeNote String?
+  updatedAt  DateTime  @updatedAt
+  class      Class     @relation(fields: [classId], references: [id])
+  subject    Subject   @relation(fields: [subjectId], references: [id])
+  teacher    Teacher   @relation(fields: [teacherId], references: [id])
+  attendances Attendance[]
+}
+
+enum DayOfWeek {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+}
+
+model Grade {
+  id        String    @id @default(cuid())
+  studentId String
+  subjectId String
+  teacherId String
+  score     Int
+  type      GradeType
+  comment   String?
+  gradedAt  DateTime  @default(now())
+  student   Student   @relation(fields: [studentId], references: [id])
+  subject   Subject   @relation(fields: [subjectId], references: [id])
+  teacher   Teacher   @relation(fields: [teacherId], references: [id])
+}
+
+enum GradeType {
+  QUIZ
+  MIDTERM
+  FINAL
+  ASSIGNMENT
+  ATTENDANCE
+}
+
+model Announcement {
+  id          String    @id @default(cuid())
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+  teacherId   String?
+  teacher     Teacher?  @relation(fields: [teacherId], references: [id])
+  classId     String?
+  class       Class?    @relation(fields: [classId], references: [id])
+  targetRole  Role?
+  title       String
+  content     String
+  isPinned    Boolean   @default(false)
+  publishedAt DateTime  @default(now())
+  expiresAt   DateTime?
+  reads       AnnouncementRead[]
+}
+
+model AnnouncementRead {
+  announcementId String
+  userId         String
+  readAt         DateTime     @default(now())
+  announcement   Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([announcementId, userId])
+  @@index([userId, readAt])
+}
+
+model Event {
+  id              String              @id @default(cuid())
+  title           String
+  description     String
+  location        String
+  startDate       DateTime
+  endDate         DateTime
+  maxParticipants Int?
+  registrations   EventRegistration[]
+}
+
+model EventRegistration {
+  id           String   @id @default(cuid())
+  eventId      String
+  studentId    String
+  registeredAt DateTime @default(now())
+  event        Event    @relation(fields: [eventId], references: [id])
+  student      Student  @relation(fields: [studentId], references: [id])
+
+  @@unique([eventId, studentId])
+}
+
+model CanteenMenu {
+  id    String        @id @default(cuid())
+  date  DateTime      @unique @db.Date
+  items CanteenItem[]
+}
+
+model CanteenItem {
+  id          String       @id @default(cuid())
+  menuId      String
+  menu        CanteenMenu  @relation(fields: [menuId], references: [id])
+  name        String
+  description String?
+  price       Float
+  category    MealCategory
+  available   Boolean      @default(true)
+  calories    Int?
+}
+
+enum MealCategory {
+  BREAKFAST
+  LUNCH
+  SNACK
+  DRINKS
+}
+
+model DocumentRequest {
+  id               String        @id @default(cuid())
+  studentId        String?
+  student          Student?      @relation(fields: [studentId], references: [id])
+  requesterUserId  String
+  requester        User          @relation("DocumentRequestRequester", fields: [requesterUserId], references: [id])
+  type             DocumentType
+  description      String?
+  status           RequestStatus @default(PENDING)
+  adminNote        String?
+  reviewedAt       DateTime?
+  reviewedByUserId String?
+  reviewer         User?         @relation("DocumentRequestReviewer", fields: [reviewedByUserId], references: [id])
+  requestedAt      DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  attachments      DocumentAttachment[]
+
+  @@index([requesterUserId])
+  @@index([status])
+}
+
+model DocumentAttachment {
+  id                 String          @id @default(cuid())
+  documentRequestId  String
+  documentRequest    DocumentRequest @relation(fields: [documentRequestId], references: [id], onDelete: Cascade)
+  originalFilename   String
+  mimeType           String
+  sizeBytes          Int
+  storedFilename     String          @unique
+  createdAt          DateTime        @default(now())
+
+  @@index([documentRequestId])
+}
+
+enum DocumentType {
+  ENROLLMENT_CERT
+  TRANSCRIPT
+  DORMITORY_CERT
+  SCHOLARSHIP_CERT
+  TEACHER_EMPLOYMENT_CERT
+  CANTEEN_EMPLOYMENT_CERT
+  OTHER
+}
+
+enum RequestStatus {
+  PENDING
+  IN_PROGRESS
+  DONE
+  REJECTED
+}
+
+model BulletinPost {
+  id          String   @id @default(cuid())
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+  title       String
+  description String
+  category    String
+  price       Float?
+  contactInfo String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model LostFoundItem {
+  id          String          @id @default(cuid())
+  reportedBy  String
+  reporter    User            @relation(fields: [reportedBy], references: [id])
+  title       String
+  description String
+  location    String
+  status      LostFoundStatus @default(LOST)
+  foundDate   DateTime?
+  createdAt   DateTime        @default(now())
+}
+
+enum LostFoundStatus {
+  LOST
+  FOUND
+  CLAIMED
+}
+
+model SportsSection {
+  id            String               @id @default(cuid())
+  name          String
+  coach         String
+  description   String?
+  schedule      String
+  location      String
+  maxMembers    Int?
+  registrations SportsRegistration[]
+}
+
+model SportsRegistration {
+  id           String        @id @default(cuid())
+  sectionId    String
+  studentId    String
+  section      SportsSection @relation(fields: [sectionId], references: [id])
+  student      Student       @relation(fields: [studentId], references: [id])
+  registeredAt DateTime      @default(now())
+
+  @@unique([sectionId, studentId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      NotificationType @default(GENERAL)
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+}
+
+enum NotificationType {
+  SCHEDULE_CHANGE
+  NEW_GRADE
+  DOCUMENT_STATUS
+  ACADEMIC_DEBT
+  ATTENDANCE_MISS
+  GENERAL
+}
+
+model CouncilNews {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  authorName  String
+  category    String
+  publishedAt DateTime @default(now())
+}
+
+model UniversityNews {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  category    String
+  authorId    String
+  publishedAt DateTime @default(now())
+}
+
+model Portfolio {
+  id           String                 @id @default(cuid())
+  studentId    String                 @unique
+  student      Student                @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  bio          String?
+  achievements PortfolioAchievement[]
+}
+
+model PortfolioAchievement {
+  id          String    @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  date        DateTime
+  category    String
+}
+
+model AcademicRanking {
+  id        String   @id @default(cuid())
+  studentId String   @unique
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  gpa       Float
+  rank      Int
+  semester  String
+  updatedAt DateTime @updatedAt
+}
+
+model Attendance {
+  id             String           @id @default(cuid())
+  studentId      String
+  student        Student          @relation(fields: [studentId], references: [id])
+  scheduleItemId String
+  scheduleItem   ScheduleItem     @relation(fields: [scheduleItemId], references: [id])
+  teacherId      String
+  teacher        Teacher          @relation(fields: [teacherId], references: [id])
+  classId        String
+  class          Class            @relation(fields: [classId], references: [id])
+  subjectId      String
+  subject        Subject          @relation(fields: [subjectId], references: [id])
+  date           DateTime         @db.Date
+  status         AttendanceStatus
+  note           String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@unique([studentId, scheduleItemId, date])
+  @@index([date])
+  @@index([classId, date])
+  @@index([teacherId, date])
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+}
