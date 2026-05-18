@@ -2,6 +2,7 @@
   "name": "csw-app",
   "version": "0.1.0",
   "private": true,
+  "description": "Campus student portal web app (Next.js)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

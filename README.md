@@ -1,138 +1,63 @@
-# CSW — веб-приложение кампуса
+# Campus Student Website
 
-Монолитное Next.js-приложение для школы / кампуса: расписание, оценки, посещаемость, объявления, события, спорт, столовая, документы, бюллетень и др. Доступ по ролям (`STUDENT`, `TEACHER`, `ADMIN`, `CANTEEN_STAFF`).
+Web portal for a university campus: schedule, grades, attendance, announcements, events, canteen menu, document requests, and role-based dashboards for **students**, **teachers**, **admins**, and **canteen staff**.
 
-Код приложения находится в каталоге **`apps/web`**.
+## Stack
 
----
+- **Next.js 16** (App Router) · **React 19** · **TypeScript**
+- **PostgreSQL** · **Prisma 7**
+- **Tailwind CSS 4** · JWT session (httpOnly cookie)
 
-## Стек
+## Quick start
 
-| Слой | Технологии |
-|------|------------|
-| Frontend / API | [Next.js](https://nextjs.org/) 16 (App Router), React 19 |
-| Стили | Tailwind CSS 4 |
-| Данные | [PostgreSQL](https://www.postgresql.org/), [Prisma](https://www.prisma.io/) 7 |
-| Аутентификация | JWT в httpOnly cookie ([`jose`](https://github.com/panva/jose)), `bcryptjs` |
-| Валидация | Zod |
-
----
-
-## Требования
-
-- **Node.js** (LTS рекомендуется)
-- **PostgreSQL** 14+
-
----
-
-## Быстрый старт
+**Requirements:** Node.js 20+, PostgreSQL 14+
 
 ```bash
-cd apps/web
-cp .env.example .env
-# Отредактируйте .env: DATABASE_URL, JWT_SECRET
+git clone git@github.com:mentisVeritas/campus-student-website.git
+cd campus-student-website
 
 npm install
-npx prisma migrate dev
+cp apps/web/.env.example apps/web/.env
+# Edit apps/web/.env — set DATABASE_URL and JWT_SECRET
+
+npm run db:migrate
 npm run db:seed
 npm run dev
 ```
 
-Приложение по умолчанию: [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000).
 
-### Полезные команды (`apps/web`)
+Demo logins (after seed): [`docs/development/test-credentials.md`](docs/development/test-credentials.md).
 
-| Команда | Назначение |
-|---------|------------|
-| `npm run dev` | Режим разработки |
-| `npm run build` / `npm run start` | Продакшен-сборка и запуск |
+## Repository layout
+
+```
+├── apps/web/          # Next.js application (source, API, UI)
+│   ├── prisma/        # Schema and migrations
+│   └── src/           # App Router pages and components
+├── docs/              # Product and development documentation
+├── package.json       # npm workspaces (scripts run from root)
+└── .github/workflows/ # CI (lint + build)
+```
+
+## Scripts (from repository root)
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run start` | Run production build |
 | `npm run lint` | ESLint |
-| `npm run db:migrate` | Prisma migrate dev |
-| `npm run db:generate` | Генерация Prisma Client |
-| `npm run db:seed` | Заполнение БД тестовыми данными |
+| `npm run db:migrate` | Apply Prisma migrations (dev) |
+| `npm run db:generate` | Regenerate Prisma Client |
+| `npm run db:seed` | Seed demo data |
 
----
+## Documentation
 
-## Переменные окружения
+- [Feature overview](docs/FEATURES.md)
+- [Documentation index](docs/README.md)
+- [Contributing](CONTRIBUTING.md)
 
-Файл **`apps/web/.env.example`** задаёт шаблон:
+## License
 
-| Переменная | Описание |
-|------------|----------|
-| `DATABASE_URL` | Строка подключения PostgreSQL (включая `schema=public` при необходимости) |
-| `JWT_SECRET` | Секрет подписи JWT для сессии (в продакшене — длинная случайная строка) |
-
-Тестовые логины для локальной отладки описаны в **`TEST_CREDENTIALS.md`** в корне репозитория (не коммитьте реальные продакшен-секреты).
-
----
-
-## Архитектура
-
-### Маршруты
-
-- **`/`** — публичная часть (редиректы на логин/дашборд по сессии).
-- **`/auth/login`** — вход.
-- **`/dashboard`** — защищённая зона; без cookie сессии middleware перенаправляет на логин (`middleware.ts`).
-- **`/dashboard`** (корень) перенаправляет пользователя на домашнюю страницу роли:
-
-  | Роль | Путь |
-  |------|------|
-  | `ADMIN` | `/dashboard/admin` |
-  | `TEACHER` | `/dashboard/teacher` |
-  | `STUDENT` | `/dashboard/student` |
-  | `CANTEEN_STAFF` | `/dashboard/canteen` |
-
-Остальные страницы лежат под **`apps/web/src/app/dashboard/...`** по префиксу роли или общим разделам (`profile`, `documents`, …).
-
-### Компоновка UI
-
-- **`DashboardLayout`** подгружает пользователя и счётчики уведомлений/объявлений, оборачивает страницы в **`DashboardShell`**.
-- **`Sidebar`** формирует навигацию по **`UserRole`** (разные секции для студента, учителя, админа, персонала столовой).
-
-### Серверная логика и API
-
-- **`requireCurrentUser`** / **`getApiSession`** — доступ к текущему пользователю на сервере и в Route Handlers.
-- Ответы API: **`ok(data)`** → `{ "data": ... }`, **`fail(message, status)`** → `{ "error": message }` (`apps/web/src/lib/api-response.ts`).
-- Доступ к БД через **`prisma`** (`apps/web/src/lib/prisma.ts`).
-- Дополнительные проверки: блокировка пользователя, системный «замок» для не-админов (`api-auth.ts`).
-
-### Данные
-
-Схема описана в **`apps/web/prisma/schema.prisma`**: пользователи, студенты, учителя, классы, предметы, оценки, расписание, посещаемость, события, регистрации, столовая (`CanteenMenu` / `CanteenItem`), документы, объявления, Lost & Found и др.
-
-После изменения схемы выполняйте миграции и при необходимости обновляйте сид.
-
----
-
-## Функциональные области
-
-Краткий обзор по ролям:
-
-- **Студент**: расписание, оценки, журнал, посещаемость, новости, объявления, события, клуб/спорт, портфолио, столовая (просмотр меню по дате), преподаватели, документы, уведомления, Lost & Found, бюллетень, рейтинги.
-- **Учитель**: расписание, посещаемость, классы, оценки, объявления, документы, Lost & Found, столовая (просмотр меню — та же логика, что у студента).
-- **Администратор**: пользователи, классы, расписание, посещаемость, новости, объявления, уведомления, документы, Lost & Found, столовая (просмотр для кампуса; редактирование меню — у `CANTEEN_STAFF` и `ADMIN`).
-- **Персонал столовой**: дашборд, **Menu Manager** (`/dashboard/canteen/menu`), документы, уведомления, Lost & Found.
-
-**Подробное описание модулей, экранов, API и заметных доработок** — в **[`docs/FEATURES.md`](docs/FEATURES.md)**.
-
----
-
-## Заметки для разработчиков
-
-### Календарные даты и API
-
-Для полей PostgreSQL типа **`@db.Date`** строки вида `YYYY-MM-DD` нужно разбирать без сдвига из-за часового пояса. В проекте для этого используется **`parseIsoDateUtcCalendar`** (`apps/web/src/lib/parse-local-date.ts`), в частности в эндпоинтах меню столовой.
-
-### Документация предметной области
-
-В **`docs/_do_not_touch_docs/`** могут лежать внешние или «замороженные» спецификации — не изменяйте их без необходимости.
-
----
-
-## Лицензия и внутренние правила
-
-Проект помечен как **`private`** в `package.json`. Условия распространения задаёт владелец репозитория.
-
----
-
-*Последнее обновление документа: апрель 2026.*
+Private project — see repository owner for distribution terms.

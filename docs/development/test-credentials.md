@@ -1,6 +1,6 @@
-# Test Credentials
+# Test credentials (local development)
 
-These credentials are for local development/demo data from `apps/web/prisma/seed.ts`.
+Demo accounts created by `apps/web/prisma/seed.ts`. **Do not use these passwords in production.**
 
 ## Admins
 

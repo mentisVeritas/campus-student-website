@@ -23,7 +23,9 @@ apps/web/uploads/
 
 # IDE / OS
 .idea/
+.vscode/
 .DS_Store
+**/.DS_Store
 *.pem
 
 # Logs

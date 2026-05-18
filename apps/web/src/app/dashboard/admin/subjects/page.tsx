@@ -43,10 +43,6 @@ export default function AdminTeacherSubjectsPage() {
 
   const subjectsById = useMemo(() => new Map(data.subjects.map((s) => [s.id, s])), [data.subjects]);
 
-  useEffect(() => {
-    void load();
-  }, []);
-
   const load = async () => {
     setLoading(true);
     try {
@@ -64,6 +60,10 @@ export default function AdminTeacherSubjectsPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    void load();
+  }, []);
 
   const assign = async (teacherId: string, subjectId: string) => {
     setBusyTeacherId(teacherId);

@@ -1,8 +1,2 @@
-node_modules
-# Keep environment variables out of version control
-.env
-
-/src/generated/prisma
-
-# Local uploads (document requests)
-/uploads
+# App-local overrides (root .gitignore covers node_modules, .next, .env)
+/uploads/
