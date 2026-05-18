@@ -5,7 +5,7 @@
 1. Node.js 20+ (see `.nvmrc`)
 2. PostgreSQL 14+
 3. Copy `apps/web/.env.example` → `apps/web/.env` and set `DATABASE_URL`, `JWT_SECRET`
-4. From repo root: `npm install`, `npm run db:migrate`, `npm run db:seed`, `npm run dev`
+4. From repo root: `npm run install:web`, `npm run db:migrate`, `npm run db:seed`, `npm run dev`
 
 ## Before opening a PR
 

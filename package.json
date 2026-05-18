@@ -3,17 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "description": "Campus student portal — schedule, grades, attendance, documents, and campus services.",
-  "workspaces": [
-    "apps/web"
-  ],
   "scripts": {
-    "dev": "npm run dev -w csw-app",
-    "build": "npm run build -w csw-app",
-    "start": "npm run start -w csw-app",
-    "lint": "npm run lint -w csw-app",
-    "db:migrate": "npm run db:migrate -w csw-app",
-    "db:generate": "npm run db:generate -w csw-app",
-    "db:seed": "npm run db:seed -w csw-app"
+    "install:web": "npm install --prefix apps/web",
+    "dev": "npm run dev --prefix apps/web",
+    "build": "npm run build --prefix apps/web",
+    "start": "npm run start --prefix apps/web",
+    "lint": "npm run lint --prefix apps/web",
+    "db:migrate": "npm run db:migrate --prefix apps/web",
+    "db:generate": "npm run db:generate --prefix apps/web",
+    "db:seed": "npm run db:seed --prefix apps/web"
   },
   "engines": {
     "node": ">=20"

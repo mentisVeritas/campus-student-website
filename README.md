@@ -16,7 +16,7 @@ Web portal for a university campus: schedule, grades, attendance, announcements,
 git clone git@github.com:mentisVeritas/campus-student-website.git
 cd campus-student-website
 
-npm install
+npm run install:web
 cp apps/web/.env.example apps/web/.env
 # Edit apps/web/.env — set DATABASE_URL and JWT_SECRET
 
@@ -36,7 +36,7 @@ Demo logins (after seed): [`docs/development/test-credentials.md`](docs/developm
 │   ├── prisma/        # Schema and migrations
 │   └── src/           # App Router pages and components
 ├── docs/              # Product and development documentation
-└── package.json       # npm workspaces (scripts run from root)
+└── package.json       # convenience scripts (run from root)
 ```
 
 ## Scripts (from repository root)
