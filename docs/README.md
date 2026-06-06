@@ -1,10 +1,30 @@
 # Documentation
 
+## Getting started
+
 | Document | Description |
 |----------|-------------|
-| [FEATURES.md](./FEATURES.md) | Product features by role and API surface |
-| [development/test-credentials.md](./development/test-credentials.md) | Local demo logins (from `prisma/seed`) |
+| [development/setup.md](./development/setup.md) | Install, env, database, run locally |
+| [development/test-credentials.md](./development/test-credentials.md) | Demo logins after `db:seed` |
 
-## Internal / archived
+## Product
 
-The folder [`_do_not_touch_docs/`](./_do_not_touch_docs/) holds frozen project specifications and agent prompts. Do not edit unless you own that process.
+| Document | Description |
+|----------|-------------|
+| [FEATURES.md](./FEATURES.md) | Features by role and API surface (RU) |
+
+## Architecture
+
+| Document | Description |
+|----------|-------------|
+| [architecture/overview.md](./architecture/overview.md) | Stack, folder layout, auth flow |
+
+## Operations
+
+| Document | Description |
+|----------|-------------|
+| [development/scripts.md](./development/scripts.md) | One-off maintenance scripts |
+
+## Contributing
+
+See [CONTRIBUTING.md](../CONTRIBUTING.md) in the repository root.

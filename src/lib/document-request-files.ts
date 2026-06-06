@@ -30,7 +30,7 @@ function inferMimeFromFilename(name: string): string | null {
 }
 
 export function uploadDir(): string {
-  return join(process.cwd(), "uploads", "document-requests");
+  return join(process.cwd(), "storage", "document-requests");
 }
 
 export async function ensureUploadDir(): Promise<void> {

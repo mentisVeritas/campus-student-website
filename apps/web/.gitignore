@@ -1,2 +1,0 @@
-# App-local overrides (root .gitignore covers node_modules, .next, .env)
-/uploads/

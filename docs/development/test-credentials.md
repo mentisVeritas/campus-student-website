@@ -1,6 +1,19 @@
 # Test credentials (local development)
 
-Demo accounts created by `apps/web/prisma/seed.ts`. **Do not use these passwords in production.**
+Demo accounts created by `prisma/seed.ts`. **Do not use these passwords in production.**
+
+## Quick reference
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `admin@university.edu` | `Admin123!` |
+| Canteen | `canteen@university.edu` | `Canteen123!` |
+| Teacher | any `@university.edu` from list below | `Teacher123!` |
+| Student | any `@university.edu` from list below | `Student123!` |
+
+Run `npm run db:seed` if accounts are missing.
+
+---
 
 ## Admins
 

@@ -323,7 +323,7 @@ export async function GET(request: NextRequest) {
         const ids = await findRequestIdsForUserViaRawSql(session.userId);
         if (ids === null) {
           return fail(
-            "Database is missing DocumentRequest.requesterUserId (or it cannot be queried). From apps/web run: npx prisma db execute --file prisma/migrations/20260428120000_document_request_requesters/migration.sql — or fix migrate history (non-empty DB: prisma migrate docs / baseline) then prisma migrate deploy.",
+            "Database is missing DocumentRequest.requesterUserId (or it cannot be queried). From the repo root run: npx prisma db execute --file prisma/migrations/20260428120000_document_request_requesters/migration.sql — or fix migrate history (non-empty DB: prisma migrate docs / baseline) then prisma migrate deploy.",
             503,
           );
         }

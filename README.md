@@ -16,9 +16,16 @@ Web portal for a university campus: schedule, grades, attendance, announcements,
 git clone git@github.com:mentisVeritas/campus-student-website.git
 cd campus-student-website
 
-npm run install:web
-cp apps/web/.env.example apps/web/.env
-# Edit apps/web/.env — set DATABASE_URL and JWT_SECRET
+make setup   # install, copy .env, migrate, seed
+make dev
+```
+
+Or with npm directly:
+
+```bash
+npm install
+cp .env.example .env
+# Edit .env — set DATABASE_URL and JWT_SECRET
 
 npm run db:migrate
 npm run db:seed
@@ -27,35 +34,54 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Demo logins (after seed): [`docs/development/test-credentials.md`](docs/development/test-credentials.md).
+Demo logins (after seed): [docs/development/test-credentials.md](docs/development/test-credentials.md).
 
-## Repository layout
+Full setup guide: [docs/development/setup.md](docs/development/setup.md).
+
+## Project layout
 
 ```
-├── apps/web/          # Next.js application (source, API, UI)
-│   ├── prisma/        # Schema and migrations
-│   └── src/           # App Router pages and components
-├── docs/              # Product and development documentation
-└── package.json       # convenience scripts (run from root)
+├── src/               # Next.js App Router (pages, API, components)
+├── prisma/            # Schema, migrations, seed
+├── tools/             # Dev-only maintenance scripts
+├── storage/           # Local files (contents not in git)
+├── docs/              # Documentation
+└── package.json
 ```
 
-## Scripts (from repository root)
+## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Development server |
-| `npm run build` | Production build |
-| `npm run start` | Run production build |
-| `npm run lint` | ESLint |
-| `npm run db:migrate` | Apply Prisma migrations (dev) |
-| `npm run db:generate` | Regenerate Prisma Client |
-| `npm run db:seed` | Seed demo data |
+Run via `make <target>` or `npm run <script>`.
+
+| Make | npm | Description |
+|------|-----|-------------|
+| `make help` | — | List all make targets |
+| `make setup` | — | Install, `.env`, migrate, seed |
+| `make dev` | `npm run dev` | Development server |
+| `make build` | `npm run build` | Production build |
+| `make start` | `npm run start` | Run production build |
+| `make lint` | `npm run lint` | ESLint |
+| `make db-migrate` | `npm run db:migrate` | Apply Prisma migrations (dev) |
+| `make db-generate` | `npm run db:generate` | Regenerate Prisma Client |
+| `make db-seed` | `npm run db:seed` | Seed demo data |
+| `make clean` | — | Remove `.next` cache |
 
 ## Documentation
 
-- [Feature overview](docs/FEATURES.md)
-- [Documentation index](docs/README.md)
-- [Contributing](CONTRIBUTING.md)
+| Topic | Link |
+|-------|------|
+| Index | [docs/README.md](docs/README.md) |
+| Features by role | [docs/FEATURES.md](docs/FEATURES.md) |
+| Architecture | [docs/architecture/overview.md](docs/architecture/overview.md) |
+| Local setup | [docs/development/setup.md](docs/development/setup.md) |
+| Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |
+
+## What is not in git
+
+- `node_modules/`, `.next/`, build caches
+- `.env` (secrets)
+- `storage/*` (uploaded files; directory kept via `.gitkeep`)
+- IDE folders (`.idea/`, `.vscode/`)
 
 ## License
 
